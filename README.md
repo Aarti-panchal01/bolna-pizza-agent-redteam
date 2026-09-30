@@ -9,6 +9,7 @@ A phone agent, "Priya", that takes home-delivery orders for a Bengaluru pizza ca
 - **7 real phone calls**: 3 on v1, 4 on v2. I was the caller and talked naturally, not from a script.
 - **A locked 11-check rubric** ([rubric/rubric.json](rubric/rubric.json)). It was hash-locked before the v2 calls, and the scorer refuses to run if the rubric changes.
 - **7 checks are automatic**, from the transcript and Bolna's interruption stats. **4 are manual**, and each needs a quote from the transcript as evidence.
+- **I audited the scorer itself** and logged the false positive and false negative I found: [rubric/scorer-audit.md](rubric/scorer-audit.md).
 - The rubric has a 12th check (per-script goals). It is excluded because the calls were free-form. See [rubric/scope.json](rubric/scope.json).
 
 ## 3. Results
@@ -60,7 +61,7 @@ The v1 agent returned 7 extraction fields per call (3/3). The v2 copy with multi
 
 ## Files
 - `prompts/`: v1 and v2 system prompts, and the diff
-- `rubric/`: the locked rubric, its hash lock, and the scoring scope
+- `rubric/`: the locked rubric, its hash lock, the scoring scope, and the scorer audit log
 - `scoring/04_score.py`: the scorer (needs your own Bolna runs in `runs/`; `bolna.py` reads your API key from a local `.env`)
 - `showcase/best-v2-call.md`: the best v2 call, with dummy personal details
 
