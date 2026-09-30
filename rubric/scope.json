@@ -1,0 +1,21 @@
+{
+  "decided": "2026-09-30, by Aarti",
+  "score_checks": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11"
+  ],
+  "excluded": {
+    "C12": "Calls are free-form from here on, so per-script goals are not tested."
+  },
+  "comparison": "all connected v1 calls vs all connected v2 calls",
+  "note": "rubric/rubric.json is unchanged and hash-locked (rubric/rubric.lock). Calls were free-form, so C12 is not scored."
+}

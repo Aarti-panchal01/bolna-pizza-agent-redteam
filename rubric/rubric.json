@@ -1,0 +1,41 @@
+{
+  "version": "locked-2026-09-30",
+  "rules": [
+    "Every call, v1 and v2, is scored on exactly these 12 checks. Nothing is added, removed or reworded after locking.",
+    "Each check is PASS, FAIL or N/A. N/A is allowed only where the check's own na_when condition says so. Pass rate = PASS / (PASS + FAIL).",
+    "Order and total are judged against what the caller actually said on the call, priced from the v1 menu: Margherita 199/349/499, Farmhouse 249/429/599, Paneer Tikka 279/459/649, Pepperoni 299/499/699 (S/M/L); Coke 60, Sprite 60, Cold Coffee 120; Garlic dip 30, Cheesy dip 40, Peri-peri dip 30; Garlic bread 129, Fries 99; delivery 40 if subtotal under 500, free at 500 or more.",
+    "Manual checks need a quote from the transcript as evidence. Without evidence the check stays unscored.",
+    "The fair comparison is per check, v1 vs v2, over the same scripts."
+  ],
+  "checks": [
+    {"id": "C01", "key": "no_rs", "type": "auto", "text": "Agent never says Rs, RS, INR, /- or the rupee symbol.", "na_when": "never"},
+    {"id": "C02", "key": "says_rupees", "type": "auto", "text": "Agent says prices with the word rupees (or rupaye / rupayi).", "na_when": "agent speaks no price"},
+    {"id": "C03", "key": "readback_breakdown", "type": "auto", "text": "Final read-back states subtotal, delivery and total.", "na_when": "no order is read back (caller cancels or no order)"},
+    {"id": "C04", "key": "phone_readback", "type": "auto", "text": "Agent reads the caller's phone number back digit by digit, matching the last full number the caller gave.", "na_when": "caller never gives a 10-digit number"},
+    {"id": "C05", "key": "no_repeat_question", "type": "auto", "text": "Agent never asks the same question twice (text similarity 0.8 or more).", "na_when": "never"},
+    {"id": "C06", "key": "no_premature_reply", "type": "auto", "text": "Agent does not jump in while the caller is still talking: Bolna user_interrupted_agent_count is 1 or less.", "na_when": "script 08-interrupting, where the caller interrupts on purpose"},
+    {"id": "C07", "key": "never_talks_over", "type": "auto", "text": "Agent never talks over the caller: Bolna agent_interrupted_user_count is 0.", "na_when": "never"},
+    {"id": "C08", "key": "order_correct", "type": "manual", "text": "Final order matches what the caller asked for, including any changes.", "na_when": "caller places no order"},
+    {"id": "C09", "key": "total_correct", "type": "manual", "text": "Total is correct from the menu and the delivery rule.", "na_when": "no total is given because no order is placed"},
+    {"id": "C10", "key": "address_complete", "type": "manual", "text": "All five address parts (house, building, street, area, landmark) are collected or asked for, and the address is read back.", "na_when": "caller places no order"},
+    {"id": "C11", "key": "confirm_before_order", "type": "manual", "text": "Address and phone are both confirmed before the order is confirmed.", "na_when": "caller places no order"},
+    {"id": "C12", "key": "scenario_goal", "type": "manual", "text": "The script's own test passes (see scenario_goals).", "na_when": "never"}
+  ],
+  "scenario_goals": {
+    "01-hinglish-order": "Order is completed and confirmed end to end.",
+    "02-kannada-only": "Agent handles a Kannada-only caller in Kannada or clearly offers a language it supports.",
+    "03-mind-change": "The change is applied: Farmhouse removed, Pepperoni in, and the change is confirmed out loud.",
+    "04-two-pizzas-one-sentence": "Both pizzas, both sizes and the per-pizza modifiers are captured from one sentence.",
+    "05-burger-not-on-menu": "Says burgers are not on the menu, invents nothing, suggests a real item, then continues the order.",
+    "06-vague-address": "Does not accept 'bus stop ke paas' as an address and asks for the missing parts.",
+    "07-total-mid-order": "Gives a correct running total mid-order, then resumes the order.",
+    "08-interrupting": "Stops when interrupted, answers what the caller said, and does not restart the menu.",
+    "09-noisy-background": "Captures the order correctly despite noise and asks to repeat rather than guessing.",
+    "10-cancel-mid-call": "Confirms the cancellation once, does not push more than once, ends politely.",
+    "11-phone-correction": "After the correction, reads the full corrected number back again.",
+    "12-hindi-numbers": "Captures quantities, flat number and phone said in Hindi words.",
+    "13-long-pause": "Does not jump in during the pauses and captures the full address.",
+    "14-menu-prices": "Reads prices as rupees and answers the cheapest item correctly.",
+    "15-modifiers-quantities": "Captures three pizzas with the right modifiers on the right pizzas."
+  }
+}
