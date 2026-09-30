@@ -1,6 +1,7 @@
 # bolna-pizza-agent-redteam
 
 Red-teaming a Hinglish pizza-ordering voice agent on [Bolna](https://bolna.ai) over real phone calls, then fixing it and measuring the fix.
+TL;DR: Built a Hinglish pizza-ordering agent on Bolna and red-teamed it over 7 real calls. Fixes took it from 30% to 62% on a locked 11-check rubric. Best find: "haan, do do" (give it) was heard as "two" and doubled the order.
 
 ## 1. What I built
 A phone agent, "Priya", that takes home-delivery orders for a Bengaluru pizza cafe in Hindi, Hinglish and English. It runs on Bolna with ElevenLabs Scribe for speech-to-text, ElevenLabs for the voice, and gpt-4.1-mini. **v1** is the baseline. **v2** is the fixed version.
